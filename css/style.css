@@ -123,3 +123,10 @@ details.qa div { margin-top: 6px; color: #d6e0e8; }
 .score { font-size: 18px; font-weight: 700; }
 svg.diagram { width: 100%; height: auto; background: #111820; border-radius: 8px; border: 1px solid var(--line); }
 svg.diagram text { fill: #dde7ef; font: 12px system-ui; }
+
+.challenge { background: #1d2a1f; border: 1px solid #3ddc84; border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; }
+.challenge .chTitle { font-weight: 700; margin-bottom: 4px; }
+.challenge a { color: var(--acc); }
+.challenge .chItem { margin: 5px 0; }
+.challenge .chItem.done { color: #9fe8bd; }
+.challenge .okTag { display: inline-block; margin-left: 6px; color: #3ddc84; font-weight: 600; }

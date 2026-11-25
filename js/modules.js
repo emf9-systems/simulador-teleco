@@ -212,7 +212,7 @@
   const QFC = 500e3;      // portadoras
   const QA = 2.0;         // amplitud de las portadoras (V pico)
   const qBit = (s, t) => Math.floor((t - (s.tReset || 0)) * QFB);
-  const qFault = (s, k) => !!(s.switches['sw4_' + k]);
+  const qFault = (s, k) => !!(s.switches['sw4_' + k]) || s.hiddenFault === k;   // hiddenFault: falla escondida de la prueba práctica
   function qFrame(s) { const b = []; for (let w = 1; w <= 3; w++) for (let i = 1; i <= 8; i++) b.push(s.switches['sw' + w + '_' + i] ? 1 : 0); return b; }
 
   function qamJ(id, label, x, y, dir, desc, expect) { return { id, label, x, y, dir, desc, expect }; }

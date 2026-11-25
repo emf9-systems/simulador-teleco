@@ -87,7 +87,7 @@
         if (e.key === '1') this.setMode('p0'); if (e.key === '2') this.setMode('p1'); if (e.key === 'c') this.setMode('cable');
       });
       const h = (location.hash || '#fsk').slice(1);
-      this.go(['fsk', 'psk', 'qam', 'study', 'quiz', 'help'].includes(h) ? h : 'fsk');
+      this.go(['fsk', 'psk', 'qam', 'study', 'practice', 'quiz', 'help'].includes(h) ? h : 'fsk');
       window.addEventListener('hashchange', () => { const t = location.hash.slice(1); if (t && t !== this._tab) this.go(t); });
       setInterval(() => this.updateGuide(), 700);
     },
@@ -97,7 +97,7 @@
     go(tab) {
       this._tab = tab;
       document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      ['moduleView', 'studyView', 'quizView', 'helpView'].forEach(v => $('#' + v).hidden = true);
+      ['moduleView', 'studyView', 'practiceView', 'quizView', 'helpView'].forEach(v => $('#' + v).hidden = true);
       history.replaceState(null, '', '#' + tab);
       if (M[tab]) {
         this.view = 'module'; this.cur = M[tab]; this.state = this.states[tab];
@@ -105,12 +105,12 @@
         this.pending = null; this.selJack = null;
         const S = this.scope.S;
         if (!S.ch[0].probe && !S.ch[1].probe && !this.cables.length) { /* sin sondas al inicio */ }
-        this.drawPanel(); this.drawControls(); this.scope.sync(); this.drawGuide(); this.showJack(null);
+        this.drawPanel(); this.drawControls(); this.scope.sync(); this.drawGuide(); this.showJack(null); this.drawBanner();
         this.scope.resize();
       } else {
         this.view = tab;
         $('#' + tab + 'View').hidden = false;
-        Study.render(tab, $('#' + tab + 'View'));
+        if (tab === 'practice') Practice.render($('#practiceView')); else Study.render(tab, $('#' + tab + 'View'));
       }
       window.scrollTo(0, 0);
     },
@@ -314,7 +314,18 @@
       $('#guide').innerHTML = g.map((s, i) => `<li data-i="${i}">${s.t}</li>`).join('');
       this.updateGuide();
     },
+    drawBanner() {
+      const b = $('#challenge'), P = Practice.active();
+      const items = P ? P.items.map((x, k) => [x, k]).filter(([x]) => x.t.mod === this.cur.id) : [];
+      if (!items.length) { b.hidden = true; return; }
+      b.hidden = false;
+      b.innerHTML = `<div class="chTitle">🧪 Prueba práctica · <a href="#practice">ver todas las tareas y el tiempo</a></div>` + items.map(([x, k]) => `<div class="chItem ${x.done ? 'done' : ''}"><b>Tarea ${k + 1}:</b> ${x.t.task} ${x.done ? '<span class="okTag">✔ lograda: abre "Prueba práctica" para las preguntas del profesor</span>' : ''}
+        ${x.t.fault && !x.done ? `<div class="row">¿Cuál es la falla? <select id="faultSel"><option value="">— elige —</option>${this.cur.faults.map((f, i) => `<option value="${i + 1}">${f}</option>`).join('')}</select><span id="faultMsg"></span></div>` : ''}</div>`).join('');
+      const fs = b.querySelector('#faultSel');
+      if (fs) fs.onchange = () => { const v = +fs.value; if (!v) return; this._faultAns = v; const ok = v === this.state.hiddenFault; b.querySelector('#faultMsg').innerHTML = ok ? ' <b style="color:#3ddc84">¡Correcto!</b>' : ' <b style="color:#ff6b6b">No es esa, sigue midiendo.</b>'; if (!ok) this._faultAns = null; if (Practice.update()) this.drawBanner(); };
+    },
     updateGuide() {
+      if (Practice.update()) { if (this.view === 'module') this.drawBanner(); else if (this.view === 'practice') Practice.render($('#practiceView')); }
       if (this.view !== 'module') return;
       const g = GUIDES[this.cur.id];
       document.querySelectorAll('#guide li').forEach(li => { let ok = false; try { ok = g[+li.dataset.i].ok(this); } catch (e) { } li.classList.toggle('done', !!ok); });

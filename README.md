@@ -11,7 +11,8 @@ Simulador web de los módulos de entrenamiento **TESCA** usados en las experienc
 - **Analizador de espectro** (FFT) para estudiar la composición espectral.
 - Perillas y switches: P1 y P2 del demodulador FSK, PR1 de la portadora PSK, SW1 a SW3 (trama de 24 bits), SW4 (fallas) y RESET del kit QAM.
 - **Guía de cada experiencia**, con pasos que se marcan solos.
-- Sección de **estudio**, **preguntas probables** e **interrogación simulada** con cronómetro.
+- **Prueba práctica**: 1 a 4 tareas al azar en los módulos (incluida una "falla misteriosa" en QAM) que se verifican solas, seguidas de 2 o 3 preguntas del profesor por tarea.
+- Sección de **estudio**, **preguntas probables** y **preguntas de alternativas** con cronómetro.
 
 ## Uso local
 Abre `index.html` en el navegador. No necesita instalar nada.

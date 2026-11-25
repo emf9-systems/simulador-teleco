@@ -15,7 +15,8 @@
     <button data-tab="psk">PSK <small>Exp. 8</small></button>
     <button data-tab="qam">QAM/DQAM <small>Exp. 9</small></button>
     <button data-tab="study">📚 Estudio</button>
-    <button data-tab="quiz">📝 Interrogación</button>
+    <button data-tab="practice">🧪 Prueba práctica</button>
+    <button data-tab="quiz">📝 Alternativas</button>
     <button data-tab="help">❔ Ayuda</button>
   </nav>
 </header>
@@ -24,6 +25,7 @@
   <!-- ======================= VISTA DE MÓDULO ======================= -->
   <section id="moduleView" class="moduleView" hidden>
     <div class="left">
+      <div id="challenge" class="challenge" hidden></div>
       <div class="toolbar">
         <div class="modes">
           <button data-mode="cable" class="active" title="Clic en un borne y luego en otro para unirlos">🔌 Cable</button>
@@ -67,6 +69,7 @@
   </section>
 
   <section id="studyView" class="page" hidden></section>
+  <section id="practiceView" class="page" hidden></section>
   <section id="quizView" class="page" hidden></section>
   <section id="helpView" class="page" hidden></section>
 </main>
@@ -75,6 +78,7 @@
 <script src="js/modules.js"></script>
 <script src="js/scope.js"></script>
 <script src="js/study.js"></script>
+<script src="js/practice.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
