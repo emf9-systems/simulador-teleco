@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador FSK · PSK · QAM</title>
+<meta name="description" content="Simulador de laboratorio de los módulos TESCA FSK, PSK y QAM/DQAM con osciloscopio y analizador de espectro, para preparar la interrogación de Telecomunicaciones.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">📡 Simulador de laboratorio · <b>Telecomunicaciones</b></div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="fsk">FSK <small>Exp. 7</small></button>
+    <button data-tab="psk">PSK <small>Exp. 8</small></button>
+    <button data-tab="qam">QAM/DQAM <small>Exp. 9</small></button>
+    <button data-tab="study">📚 Estudio</button>
+    <button data-tab="quiz">📝 Interrogación</button>
+    <button data-tab="help">❔ Ayuda</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ======================= VISTA DE MÓDULO ======================= -->
+  <section id="moduleView" class="moduleView" hidden>
+    <div class="left">
+      <div class="toolbar">
+        <div class="modes">
+          <button data-mode="cable" class="active" title="Clic en un borne y luego en otro para unirlos">🔌 Cable</button>
+          <button data-mode="p0" title="Clic en un borne para medirlo con el canal 1 (tecla 1)"><span class="dot y"></span>Sonda CH1</button>
+          <button data-mode="p1" title="Clic en un borne para medirlo con el canal 2 (tecla 2)"><span class="dot c"></span>Sonda CH2</button>
+        </div>
+        <div class="colors" title="Color del próximo cable"></div>
+        <label class="chk"><input type="checkbox" id="showTP"> Puntos de prueba internos</label>
+        <button id="btnClear" class="ghost">🗑 Quitar cables</button>
+      </div>
+      <div class="panelWrap">
+        <svg id="panel" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div id="tip" class="tip" hidden></div>
+      </div>
+      <div class="statusbar" id="statusbar"></div>
+      <div class="under">
+        <div class="card" id="controlsCard"><h3>Controles del módulo</h3><div id="controls"></div></div>
+        <div class="card" id="jackCard"><h3>Borne seleccionado</h3><div id="jackInfo" class="muted">Pasa el mouse sobre un borne (círculo) para ver qué señal hay ahí. Haz clic para seleccionarlo.</div></div>
+        <div class="card wide" id="guideCard"><h3>Guía de la experiencia <span class="muted small">(se marca sola al hacer cada paso)</span></h3><ol id="guide"></ol>
+          <div class="row"><button id="btnAutoWire">⚡ Hacer todas las conexiones de la guía</button></div></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="scope" id="scope">
+        <div class="scopeHead">
+          <div class="model">OSCILOSCOPIO DIGITAL · 2 CANALES</div>
+          <div class="vt"><button class="viewtab active" data-view="scope">Osciloscopio</button><button class="viewtab" data-view="fft">Analizador de espectro</button></div>
+        </div>
+        <canvas class="screen"></canvas>
+        <div class="ctl"></div>
+        <div class="fftctl" style="display:none">
+          <div class="grp"><div class="gt">Analizador de espectro (FFT)</div>
+            <label>Señal <select class="fsrc"><option value="0">CH1</option><option value="1">CH2</option></select></label>
+            <label>Span <select class="fspan"></select></label>
+            <label>Nivel de ref. <select class="fref"><option value="20">+20 dBV</option><option value="10">+10 dBV</option><option value="0">0 dBV</option><option value="-10">−10 dBV</option></select></label>
+            <p class="muted small">Muestra la amplitud (dBV pico) de cada componente de frecuencia de la señal que mide la sonda elegida. Se marcan los picos principales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="studyView" class="page" hidden></section>
+  <section id="quizView" class="page" hidden></section>
+  <section id="helpView" class="page" hidden></section>
+</main>
+
+<script src="js/engine.js"></script>
+<script src="js/modules.js"></script>
+<script src="js/scope.js"></script>
+<script src="js/study.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
