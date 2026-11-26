@@ -87,7 +87,7 @@
         if (e.key === '1') this.setMode('p0'); if (e.key === '2') this.setMode('p1'); if (e.key === 'c') this.setMode('cable');
       });
       const h = (location.hash || '#fsk').slice(1);
-      this.go(['fsk', 'psk', 'qam', 'study', 'practice', 'quiz', 'help'].includes(h) ? h : 'fsk');
+      this.go(['fsk', 'psk', 'qam', 'study', 'glossary', 'practice', 'quiz', 'help'].includes(h) ? h : 'fsk');
       window.addEventListener('hashchange', () => { const t = location.hash.slice(1); if (t && t !== this._tab) this.go(t); });
       setInterval(() => this.updateGuide(), 700);
     },
@@ -97,7 +97,7 @@
     go(tab) {
       this._tab = tab;
       document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      ['moduleView', 'studyView', 'practiceView', 'quizView', 'helpView'].forEach(v => $('#' + v).hidden = true);
+      ['moduleView', 'studyView', 'glossaryView', 'practiceView', 'quizView', 'helpView'].forEach(v => $('#' + v).hidden = true);
       history.replaceState(null, '', '#' + tab);
       if (M[tab]) {
         this.view = 'module'; this.cur = M[tab]; this.state = this.states[tab];
@@ -110,7 +110,7 @@
       } else {
         this.view = tab;
         $('#' + tab + 'View').hidden = false;
-        if (tab === 'practice') Practice.render($('#practiceView')); else Study.render(tab, $('#' + tab + 'View'));
+        if (tab === 'practice') Practice.render($('#practiceView')); else if (tab === 'glossary') Glossary.render($('#glossaryView')); else Study.render(tab, $('#' + tab + 'View'));
       }
       window.scrollTo(0, 0);
     },
