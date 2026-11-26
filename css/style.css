@@ -130,3 +130,35 @@ svg.diagram text { fill: #dde7ef; font: 12px system-ui; }
 .challenge .chItem { margin: 5px 0; }
 .challenge .chItem.done { color: #9fe8bd; }
 .challenge .okTag { display: inline-block; margin-left: 6px; color: #3ddc84; font-weight: 600; }
+
+/* --------- glosario de etapas --------- */
+.gMod { scroll-margin-top: 110px; }
+.gCard { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 12px 0; scroll-margin-top: 70px; break-inside: avoid; }
+@media (max-width: 760px) { .gCard { grid-template-columns: 1fr; } }
+.gImg { display: block; align-self: start; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+.gImg img { display: block; width: 100%; height: auto; }
+.gHead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.gHead h3 { margin: 0; flex: 1 1 auto; min-width: 0; }
+.gNum { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--acc); color: #001526; font-weight: 700; display: grid; place-items: center; }
+.gTag { flex: none; font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #233240; color: #bfe2ff; border: 1px solid #35506a; }
+.gTxt dl { margin: 0; }
+.gTxt dt { font-weight: 700; color: var(--y); margin-top: 8px; font-size: 13.5px; }
+.gTxt dd { margin: 2px 0 0; color: #d6e0e8; }
+.gFig { margin: 10px 0; }
+.gFig img { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+.gFig figcaption { color: var(--mut); font-size: 12.5px; }
+.gBtn { display: inline-block; color: #001526; background: var(--acc); padding: 6px 12px; border-radius: 7px; text-decoration: none; font-weight: 600; }
+@media print {
+  header.top, .noprint { display: none !important; }
+  html, body { background: #fff; color: #000; }
+  main { padding: 0; }
+  .page p, .page li, .gTxt dd { color: #000; }
+  .page h2 { color: #0b4f86; } .gTxt dt { color: #7a5600; }
+  .gCard { background: #fff; border-color: #bbb; grid-template-columns: 38% 1fr; gap: 10px; padding: 8px; margin: 8px 0; font-size: 12px; }
+  .gImg img { max-height: 300px; object-fit: contain; }
+  .gTxt dt { margin-top: 4px; font-size: 12px; }
+  .gFig img { max-width: 70%; }
+  .note { background: #fff6e0; }
+  .page th { background: #eee; }
+  .gMod + .gMod { break-before: page; }
+}
